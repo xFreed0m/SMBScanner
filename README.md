@@ -3,10 +3,10 @@
 
 ## How to use it
 Download the release for you OS from [here](https://github.com/xFreed0m/SMBScanner/releases)
-````
+```
 Run the tool with the needed flags:
 ```
-sMBscanner --targets [TARGETS_FILE] -d [DOMAIN] -u [USERNAME] -p [PASSWORD]
+SMBscanner --targets [TARGETS_FILE] -d [DOMAIN] -u [USERNAME] -p [PASSWORD]
 ```
 
 ## Options to consider
