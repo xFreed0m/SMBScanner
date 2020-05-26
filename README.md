@@ -2,7 +2,7 @@
  Golang tool to scan for SMB version and signing status
 
 ## How to use it
-Download the release for you OS from ![here](https://github.com/xFreed0m/SMBScanner/releases)
+Download the release for you OS from [here](https://github.com/xFreed0m/SMBScanner/releases)
 ````
 Run the tool with the needed flags:
 ```
