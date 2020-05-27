@@ -9,11 +9,13 @@ SMBscanner --targets [TARGETS_FILE] -d [DOMAIN] -u [USERNAME] -p [PASSWORD]
 ```
 
 ## Options to consider
+```
 * -l
   * Name of the logfile to use (the default is "SMBScan.log"
 * --port
   * Port to use (the deafult is 445)
- 
+```
+
 
 ### Tested OS
 Not tested yet, testers wanted!
