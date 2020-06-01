@@ -3,8 +3,7 @@ project_name: SMBScanner
 
 before:
   hooks:
-    - go get -v -u github.com/akamensky/argparse
-    - go get -v -u github.com/stacktitan/smb/smb
+    - go mod download
 
 builds:
   # GOOS list to build for.
