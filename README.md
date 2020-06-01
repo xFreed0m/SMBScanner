@@ -11,13 +11,13 @@ Golang tool to scan for SMB version and signing status
 Download the release for you OS from [here](https://github.com/xFreed0m/SMBScanner/releases)
 Run the tool with the needed flags:
 
-```
+```text
 SMBscanner --targets [TARGETS_FILE] -d [DOMAIN] -u [USERNAME] -p [PASSWORD]
 ```
 
 ## Options to consider
 
-```
+```text
 * -l
   * Name of the logfile to use (the default is "SMBScan.log"
 * --port
