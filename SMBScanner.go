@@ -8,7 +8,10 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"os"
+	"sort"
+	"strings"
 
 	"github.com/akamensky/argparse"
 	"github.com/stacktitan/smb/smb"
@@ -69,7 +72,32 @@ func logger(logfile string) {
 
 }
 
+func hosts(cidr string) ([]string, error) {
+	ip, ipnet, err := net.ParseCIDR(cidr)
+	if err != nil {
+		return nil, err
+	}
+
+	var ips []string
+	for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); inc(ip) {
+		ips = append(ips, ip.String())
+	}
+	// remove network address and broadcast address
+	return ips[1 : len(ips)-1], nil
+}
+
+//  http://play.golang.org/p/m8TNTtygK0
+func inc(ip net.IP) {
+	for j := len(ip) - 1; j >= 0; j-- {
+		ip[j]++
+		if ip[j] > 0 {
+			break
+		}
+	}
+}
+
 func targetsReader(targets string) []string {
+	// opening the input file
 	targetsLines, err := os.Open(targets)
 	if err != nil {
 		log.Fatal(err)
@@ -77,26 +105,49 @@ func targetsReader(targets string) []string {
 	defer targetsLines.Close()
 
 	var lines []string
+	// reading the file content into string array
 	scanner := bufio.NewScanner(targetsLines)
 	for scanner.Scan() {
+		// net.ParseCIDR(lines)
 		lines = append(lines, scanner.Text())
 	}
-	return lines
+
+	var entries []string
+	var cidr [][]string
+	var singles []string
+
+	// var ips [][]string
+	for _, entry := range lines {
+		// if entry has / in the line:
+		// if strings.Contains(str, sub)
+		if strings.Contains(entry, "/") {
+			entries, err = hosts(entry)
+			cidr = append(cidr, entries)
+		} else {
+			var ip net.IP
+			ip = net.ParseIP(entry)
+			singles = append(singles, ip.String())
+		}
+	}
+	cidr = append(cidr, singles)
+
+	var targetList []string
+	for _, each := range cidr {
+		for _, other := range each {
+			targetList = append(targetList, other)
+			sort.Strings(targetList)
+		}
+	}
+	fmt.Println(targetList)
+
+	return targetList
 }
 
 func smbScanner(targets []string, port int, username string, domain string, password string) {
-
 	// scan section
 
-	// for _, target := range targets {
-	// 	// conversting port int to string
-	// 	portStr := strconv.Itoa(port)
-	// 	// creating the server + port string
-	// 	targetAddr := target + ":" + portStr
-
-	// }
-
 	for _, target := range targets {
+		fmt.Println(target)
 
 		options := smb.Options{
 			Host:        target,
@@ -134,13 +185,15 @@ func main() {
 	banner()
 	targets, domain, username, password, port, logfile := argparser()
 	logger(logfile)
-	lines := targetsReader(targets)
-	smbScanner(lines, port, username, domain, password)
+	ips := targetsReader(targets)
+
+	smbScanner(ips, port, username, domain, password)
 
 }
 
 // TODO:
-// add subnet support (argument and file)
+// remove duplicates from targets
+// pack the tool in docker file
 // check and print the used SMB version
 
-// v0.0.1
+// v0.0.3

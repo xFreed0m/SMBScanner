@@ -1,5 +1,9 @@
 # SMBScanner
- Golang tool to scan for SMB version and signing status
+[![Release](https://img.shields.io/github/release/xFreed0m/SMBScanner.svg)](https://github.com/xFreed0m/SMBScanner/releases/latest)
+[![Software License](https://img.shields.io/github/license/xFreed0m/SMBScanner)](/LICENSE.md)
+[![Build status](https://img.shields.io/github/workflow/status/xFreed0m/SMBscanner/auto-release)](https://github.com/xfreed0m/smbscanner/actions?workflow=auto-release)
+
+Golang tool to scan for SMB version and signing status
 
 ## How to use it
 Download the release for you OS from [here](https://github.com/xFreed0m/SMBScanner/releases)
