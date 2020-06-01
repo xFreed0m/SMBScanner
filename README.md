@@ -32,7 +32,6 @@ please open an issue and list which release you used and which type of scans you
 ### TODO
 
 * Update README with building from source instructions
-* Add features listed in the bottom of SMBScan.go
 
 ### Issues, bugs and other code-issues
 
