@@ -31,7 +31,7 @@ By @x_Freed0m
 	fmt.Println(asciiArt)
 }
 
-func argparser() (string, string, string, string, int, string) {
+func argparser() (string, string, string, string, int, string, bool) {
 	// argparse section
 	// Create new parser object
 	parser := argparse.NewParser("SMBScanner", "Golang tool to scan hosts to identify SMB version and signing status. by @xFreed0m")
@@ -41,6 +41,7 @@ func argparser() (string, string, string, string, int, string) {
 	password := parser.String("p", "password", &argparse.Options{Required: true, Help: "Password to authenticate with"})
 	port := parser.Int("", "port", &argparse.Options{Default: 445, Required: false, Help: "SMB Port to use"})
 	logFile := parser.String("l", "logfile", &argparse.Options{Default: "SMBScan.log", Required: false, Help: "Log file to save results to"})
+	debug := parser.Flag("d", "debug", &argparse.Options{Default: false, Required: false, Help: "debug"})
 
 	// Parse input
 	err := parser.Parse(os.Args)
@@ -54,7 +55,7 @@ func argparser() (string, string, string, string, int, string) {
 	}
 
 	// returning all the arguments to be used when calling the executioning function
-	return *targets, *domain, *username, *password, *port, *logFile
+	return *targets, *domain, *username, *password, *port, *logFile, *debug
 }
 
 func logger(logfile string) {
@@ -138,16 +139,14 @@ func targetsReader(targets string) []string {
 			sort.Strings(targetList)
 		}
 	}
-	fmt.Println(targetList)
 
 	return targetList
 }
 
-func smbScanner(targets []string, port int, username string, domain string, password string) {
+func smbScanner(targets []string, port int, username string, domain string, password string, debug bool) {
 	// scan section
 
 	for _, target := range targets {
-		fmt.Println(target)
 
 		options := smb.Options{
 			Host:        target,
@@ -157,7 +156,7 @@ func smbScanner(targets []string, port int, username string, domain string, pass
 			Workstation: "",
 			Password:    password,
 		}
-		debug := false
+		debug := debug
 		session, err := smb.NewSession(options, debug)
 
 		if err != nil {
@@ -183,17 +182,17 @@ func smbScanner(targets []string, port int, username string, domain string, pass
 func main() {
 
 	banner()
-	targets, domain, username, password, port, logfile := argparser()
+	targets, domain, username, password, port, logfile, debug := argparser()
 	logger(logfile)
 	ips := targetsReader(targets)
 
-	smbScanner(ips, port, username, domain, password)
+	smbScanner(ips, port, username, domain, password, debug)
 
 }
 
 // TODO:
 // remove duplicates from targets
 // pack the tool in docker file
-// check and print the used SMB version
+// check and print the used SMB version (supported by library?)
 
-// v0.0.3
+// v0.0.4
