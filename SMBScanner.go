@@ -26,6 +26,7 @@ func banner() {
  ___/ / /  / / /_/ /__/ / /__/ /_/ / / / / / / /  __/ /    
 /____/_/  /_/_____/____/\___/\__,_/_/ /_/_/ /_/\___/_/   
 ===========================================================
+[!] Supports SMBv2 only!
 By @x_Freed0m
 `
 	fmt.Println(asciiArt)
@@ -41,7 +42,7 @@ func argparser() (string, string, string, string, int, string, bool) {
 	password := parser.String("p", "password", &argparse.Options{Required: true, Help: "Password to authenticate with"})
 	port := parser.Int("", "port", &argparse.Options{Default: 445, Required: false, Help: "SMB Port to use"})
 	logFile := parser.String("l", "logfile", &argparse.Options{Default: "SMBScan.log", Required: false, Help: "Log file to save results to"})
-	debug := parser.Flag("d", "debug", &argparse.Options{Default: false, Required: false, Help: "debug"})
+	debug := parser.Flag("v", "verbose", &argparse.Options{Default: false, Required: false, Help: "debug"})
 
 	// Parse input
 	err := parser.Parse(os.Args)
