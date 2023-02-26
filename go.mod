@@ -1,4 +1,4 @@
-module github.com/stacktitan/smb/
+module github.com/stacktitan/smb
 
 go 1.14
 
