@@ -4,6 +4,7 @@ project_name: SMBScanner
 before:
   hooks:
     - go mod download
+    - go get github.com/stacktitan/smb
 
 builds:
   # GOOS list to build for.
