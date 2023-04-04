@@ -6,6 +6,7 @@ before:
     - go mod download
     - go get github.com/stacktitan/smb
     - go get github.com/stacktitan/smb/smb
+    - go mod tidy
 
 builds:
   # GOOS list to build for.
