@@ -3,9 +3,6 @@ project_name: SMBScanner
 
 before:
   hooks:
-    - go mod download
-    - go get github.com/stacktitan/smb
-    - go get github.com/stacktitan/smb/smb
     - go mod tidy
 
 builds:
