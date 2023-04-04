@@ -5,6 +5,7 @@ before:
   hooks:
     - go mod download
     - go get github.com/stacktitan/smb
+    - go get github.com/stacktitan/smb/smb
 
 builds:
   # GOOS list to build for.
