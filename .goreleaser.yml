@@ -9,7 +9,7 @@ before:
     - 'go mod download golang.org/x/net'
     - 'go mod download github.com/stacktitan/smb'
     - 'go get github.com/stacktitan/smb'
-    - 'go mod tidy
+    - 'go mod tidy'
     
 
 builds:
