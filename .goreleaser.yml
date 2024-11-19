@@ -5,11 +5,11 @@ project_name: SMBScanner
 
 before:
   hooks:
-    - go mod download golang.org/x/crypto
-    - go mod download golang.org/x/net 
-    - go mod download github.com/stacktitan/smb
-    - go get github.com/stacktitan/smb
-    - go mod tidy
+    - 'go mod download golang.org/x/crypto'
+    - 'go mod download golang.org/x/net'
+    - 'go mod download github.com/stacktitan/smb'
+    - 'go get github.com/stacktitan/smb'
+    - 'go mod tidy
     
 
 builds:
